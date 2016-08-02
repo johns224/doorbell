@@ -28,7 +28,7 @@ public class Doorbell {
 		server.start();
 	}
 
-	static void log(String log) {
+	public static void log(String log) {
 		System.out.println("[" + new Date() + "] " + log);
 	}
 
