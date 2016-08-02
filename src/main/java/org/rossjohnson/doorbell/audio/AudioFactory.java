@@ -1,5 +1,6 @@
 package org.rossjohnson.doorbell.audio;
 
+import org.rossjohnson.doorbell.Doorbell;
 import org.rossjohnson.doorbell.OSType;
 
 /**
@@ -7,12 +8,17 @@ import org.rossjohnson.doorbell.OSType;
  */
 public class AudioFactory {
     public static Audio getAudio() {
+        Audio retVal;
         if (OSType.isMac()) {
-            return new MacAudio();
+            retVal =  new MacAudio();
         }
         else if (OSType.isLinux()) {
-            return new LinuxAudio();
+            retVal =  new LinuxAudio();
         }
-        return new NoopAudio();
+        else {
+            retVal = new NoopAudio();
+        }
+        Doorbell.log("Using audio of type " + retVal.getClass().getSimpleName());
+        return retVal;
     }
 }
