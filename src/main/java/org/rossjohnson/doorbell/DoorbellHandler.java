@@ -37,6 +37,4 @@ class DoorbellHandler implements HttpHandler {
             if (os != null) os.close();
         }
     }
-
-
 }

@@ -16,7 +16,7 @@ public class DoorbellRinger {
     public void ringDoorbell() {
         try {
             int origVol = audio.getVolume();
-            audio.setVolume(80);
+            if (origVol < 65) audio.setVolume(65);
             audio.playClip();
             Thread.sleep(2000);
             audio.setVolume(origVol);
