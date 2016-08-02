@@ -1,5 +1,7 @@
 package org.rossjohnson.doorbell.audio;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,8 +27,14 @@ public class MacAudio implements Audio {
 		SET_VOLUME_CMD[2] = "set volume " + new DecimalFormat(VOLUME_FMT).format(percentOfMax / (100/7)); // valid values are 0-7, go figure... 
 		Runtime.getRuntime().exec(SET_VOLUME_CMD);
 	}
-	
-	private int parseVolume(String output) {
+
+    public void playClip() throws Exception {
+        Clip clip = AudioSystem.getClip();
+        clip.open(AudioSystem.getAudioInputStream(this.getClass().getResource("/doorbell.wav")));
+        clip.start();
+    }
+
+    private int parseVolume(String output) {
 		Matcher m = VOLUME_REGEX.matcher(output);
 		if (m.matches()) {
 			return Integer.parseInt(m.group(1));

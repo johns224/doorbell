@@ -10,4 +10,6 @@ public interface Audio {
 	int getVolume() throws IOException;
 	
 	void setVolume(int percentOfMax) throws IOException;
+
+	void playClip() throws Exception;
 }

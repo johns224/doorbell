@@ -11,4 +11,9 @@ public class NoopAudio implements Audio {
 	public void setVolume(int percentOfMax) throws IOException {
 	}
 
+	@Override
+	public void playClip() throws Exception {
+	}
+
+
 }

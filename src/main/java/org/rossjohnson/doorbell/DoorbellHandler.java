@@ -7,9 +7,7 @@ import java.util.Date;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-import org.rossjohnson.doorbell.audio.MacAudio;
-import org.rossjohnson.doorbell.audio.NoopAudio;
-import org.rossjohnson.doorbell.audio.Audio;
+import org.rossjohnson.doorbell.audio.*;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -19,14 +17,7 @@ class DoorbellHandler implements HttpHandler {
 	private Audio audio;
 
 	public DoorbellHandler() {
-		audio = createAudio();
-	}
-
-	private Audio createAudio() {
-		if (OSType.isMac()) {
-			return new MacAudio();
-		}
-		return new NoopAudio();
+		audio = AudioFactory.getAudio();
 	}
 
 	public void handle(HttpExchange http) throws IOException {
@@ -51,7 +42,7 @@ class DoorbellHandler implements HttpHandler {
 		try {
 			int origVol = audio.getVolume();
 			audio.setVolume(80);
-			playClip();
+			audio.playClip();
 			Thread.sleep(2000);
 			audio.setVolume(origVol);
 
@@ -59,11 +50,5 @@ class DoorbellHandler implements HttpHandler {
 			Doorbell.log("Error playing doorbell sound ");
 			e.printStackTrace();
 		}
-	}
-
-	private void playClip() throws Exception {
-		Clip clip = AudioSystem.getClip();
-		clip.open(AudioSystem.getAudioInputStream(this.getClass().getResource("/doorbell.wav")));
-		clip.start();
 	}
 }
