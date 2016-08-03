@@ -8,17 +8,17 @@ import org.rossjohnson.doorbell.OSType;
  */
 public class AudioFactory {
     public static Audio getAudio() {
-        Audio retVal;
+        Audio audio;
         if (OSType.isMac()) {
-            retVal =  new MacAudio();
+            audio = new MacAudio();
         }
         else if (OSType.isLinux()) {
-            retVal =  new LinuxAudio();
+            audio = new LinuxAudio();
         }
         else {
-            retVal = new NoopAudio();
+            audio = new NoopAudio();
         }
-        Doorbell.log("Using audio of type " + retVal.getClass().getSimpleName());
-        return retVal;
+        Doorbell.log("Using audio of type " + audio.getClass().getSimpleName());
+        return audio;
     }
 }
