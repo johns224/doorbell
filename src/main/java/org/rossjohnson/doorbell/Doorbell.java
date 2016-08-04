@@ -9,12 +9,13 @@ import com.sun.net.httpserver.HttpServer;
 @SuppressWarnings("restriction")
 public class Doorbell {
 	private static final int DEFAULT_PORT = 9000;
-	HttpServer server;
+	private HttpServer server;
 
 	public static void main(String[] args) throws Exception {
 		int port = args.length == 0 ? DEFAULT_PORT : Integer.parseInt(args[0]);
 		Doorbell doorbell = new Doorbell(port);
-		doorbell.startServer(port);
+		log("Starting doorbell server on port " + port);
+		doorbell.startServer();
 	}
 
 	public Doorbell(int port) throws Exception {
@@ -24,8 +25,7 @@ public class Doorbell {
 		server.setExecutor(null);
 	}
 
-	public void startServer(int port) throws IOException {
-		log("Doorbell server started on port " + port);
+	public void startServer() throws IOException {
 		server.start();
 	}
 

@@ -1,5 +1,6 @@
 package org.rossjohnson.doorbell.audio;
 
+import javax.sound.sampled.*;
 import java.io.IOException;
 
 /**
@@ -7,7 +8,7 @@ import java.io.IOException;
  */
 public class LinuxAudio implements Audio {
 
-    private static final String[] PLAY_DOORBELL_CMD = {"/usr/bin/aplay", "/storage/doorbell.wav"};
+    private static final String[] PLAY_DOORBELL_CMD = {"/usr/bin/aplay", "/storage/downloads/doorbell.wav"};
 
 
     @Override
@@ -23,5 +24,6 @@ public class LinuxAudio implements Audio {
     @Override
     public void playClip() throws Exception {
         Runtime.getRuntime().exec(PLAY_DOORBELL_CMD);
+
     }
 }
